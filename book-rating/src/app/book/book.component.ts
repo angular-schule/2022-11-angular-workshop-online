@@ -11,9 +11,12 @@ export class BookComponent implements OnInit {
   // Input: Daten können von der Elternkomponente hierher übergeben werden
   @Input() book?: Book;
 
-  constructor() {}
+  constructor() {
+    // console.log('CTOR', this.book);
+  }
 
   ngOnInit(): void {
+    // console.log('NGO', this.book);
   }
 
 }
