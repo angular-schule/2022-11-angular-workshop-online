@@ -8,9 +8,10 @@ import { Book } from '../shared/book';
 })
 export class BookComponent implements OnInit {
 
+  // Input: Daten können von der Elternkomponente hierher übergeben werden
   @Input() book?: Book;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
   }
