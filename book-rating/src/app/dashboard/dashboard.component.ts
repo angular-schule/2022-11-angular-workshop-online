@@ -29,8 +29,7 @@ export class DashboardComponent implements OnInit {
     ];
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
 
