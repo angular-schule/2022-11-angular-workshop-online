@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Book } from '../shared/book';
 
 @Component({
@@ -7,6 +7,7 @@ import { Book } from '../shared/book';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
 
   books: Book[] = [];
 
@@ -30,6 +31,14 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  doRateUpX(book: Book) {
+    console.log('UP', book);
+  }
+
+  doRateDownX(book: Book) {
+    console.log('DOWN', book);
+  }
 
 }
 

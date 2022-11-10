@@ -1,6 +1,8 @@
 <br-book
   *ngFor="let b of books"
-  [book]="b"></br-book>
+  [book]="b"
+  (rateUp)="doRateUpX(b)"
+  (rateDown)="doRateDownX($event)"></br-book>
 
 <div *ngIf="!books.length">
   Keine Bücher vorhanden!

@@ -1,5 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Book } from '../shared/book';
+
+interface RatePayload {
+  book: Book;
+  direction: 'up' | 'down';
+}
 
 @Component({
   selector: 'br-book',
@@ -10,6 +15,9 @@ export class BookComponent implements OnInit {
 
   // Input: Daten können von der Elternkomponente hierher übergeben werden
   @Input() book?: Book;
+  @Output() rateUp = new EventEmitter<Book>();
+  @Output() rateDown = new EventEmitter<Book>();
+  // @Output() rate = new EventEmitter<RatePayload>();
 
   constructor() {
     // console.log('CTOR', this.book);
@@ -17,6 +25,15 @@ export class BookComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log('NGO', this.book);
+  }
+
+  doRateUp() {
+    // this.rate.emit({ book: this.book, direction: 'up' });
+    this.rateUp.emit(this.book);
+  }
+
+  doRateDown() {
+    this.rateDown.emit(this.book);
   }
 
 }
