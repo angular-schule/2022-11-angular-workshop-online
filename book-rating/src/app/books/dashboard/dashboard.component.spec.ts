@@ -1,4 +1,7 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Book } from '../shared/book';
+import { BookRatingService } from '../shared/book-rating.service';
 
 import { DashboardComponent } from './dashboard.component';
 
@@ -6,18 +9,65 @@ describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
+
   beforeEach(async () => {
+
+    // Stub / Mock
+    const ratingMock = {
+      rateUp: (b: Book) => b
+    };
+
     await TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
+      declarations: [ DashboardComponent ],
+      imports: [],
+      providers: [
+        // BRS ersetzen: Immer wenn BRS anfordert, wird stattdessen ratingMock ausgeliefert
+        {
+          provide: BookRatingService,
+          useValue: ratingMock
+        }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
+    // TS-Klasseninstanz
     component = fixture.componentInstance;
+
+    // HTML-Element
+    // fixture.nativeElement // fixture.debugElement
+
+    // Template aktualisieren
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call service.rateUp() for doRateUpX()', () => {
+    // Arrange
+    // Service anfordern (in Wahrheit ist das unser ratingMock!)
+    const rs = TestBed.inject(BookRatingService); // früher: TestBed.get()
+
+    // Testbuch
+    const book = { isbn: '' } as Book; // Type Assertion
+
+    // Spionieren!
+    // spyOn(rs, 'rateUp').and.returnValue(book);
+    // spyOn(rs, 'rateUp').and.callFake(b => b);
+    // Methode ersetzen, aber im Hintergrund trotzdem originale Methode weiter verwenden
+    spyOn(rs, 'rateUp').and.callThrough();
+
+
+    // Act
+    // Methode aufrufen
+    component.doRateUpX(book);
+
+    // Assert
+    // prüfen, ob die richtige Methode im Service aufgerufen wurde
+    expect(rs.rateUp).toHaveBeenCalledTimes(1);
+    expect(rs.rateUp).toHaveBeenCalledWith(book);
   });
 });
