@@ -20,6 +20,7 @@ export class BookRatingService {
       // rating: Math.min(5, book.rating + 1)
       rating: book.rating + 1
     };
+
   }
 
   rateDown(book: Book): Book {
@@ -29,3 +30,4 @@ export class BookRatingService {
     }
   }
 }
+
