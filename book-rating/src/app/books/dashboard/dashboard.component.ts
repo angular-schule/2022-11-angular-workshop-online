@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TrackByFunction } from '@angular/core';
 import { Book } from '../shared/book';
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
@@ -11,6 +11,10 @@ import { BookStoreService } from '../shared/book-store.service';
 export class DashboardComponent implements OnInit {
 
   books: Book[] = [];
+
+  trackBook: TrackByFunction<Book> = (index, item) => {
+    return item.isbn;
+  }
 
   constructor(private rs: BookRatingService, private bs: BookStoreService) {
     this.bs.getAll().subscribe(books => {
@@ -45,6 +49,7 @@ export class DashboardComponent implements OnInit {
         return ratedBook;
       }
     });
+
 
     // this.books = this.books.map(b => b.isbn !== ratedBook.isbn ? b : ratedBook);
 

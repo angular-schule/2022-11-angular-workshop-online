@@ -27,6 +27,7 @@ export class BookComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log('NGO', this.book);
+    console.log('NGONINIT', this.book?.isbn);
   }
 
   doRateUp() {
