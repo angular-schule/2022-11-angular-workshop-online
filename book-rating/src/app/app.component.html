@@ -1,6 +1,12 @@
 <div class="container">
   <h1>{{ title }}</h1>
 
+  <nav class="mb-5">
+    <a routerLink="/books" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page">Dashboard</a> |
+    <a routerLink="/books/create" routerLinkActive="is-active">Create</a> |
+    <a routerLink="/books/search" routerLinkActive="is-active">Search</a>
+  </nav>
+
   <router-outlet></router-outlet>
 </div>
 

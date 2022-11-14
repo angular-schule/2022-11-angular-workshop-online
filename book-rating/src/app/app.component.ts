@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Book Rating!';
+
+  menuItems = [
+    { label: 'Dashboard', path: '/books' },
+    { label: 'Search', path: '/books/search' },
+    { label: 'Create', path: '/books/create' }
+  ];
 }
