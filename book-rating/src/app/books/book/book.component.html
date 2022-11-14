@@ -15,7 +15,11 @@
     <button class="btn btn-green" (click)="doRateUp()"> + </button>
     <button class="btn btn-red" (click)="doRateDown()"> – </button>
     <button class="btn btn-red" (click)="doDelete()"> Delete </button>
+
+    <a [routerLink]="['/books', book.isbn]">Details</a>
+    <!--<a [routerLink]="'/books/' + book.isbn">Details</a>
+    <a [routerLink]="book.isbn">Details</a>
+    <a [routerLink]="[book.isbn]">Details</a>
+    <a routerLink="/books/{{ book.isbn }}">Details</a>-->
   </div>
 </div>
-
-{{ log() }}
