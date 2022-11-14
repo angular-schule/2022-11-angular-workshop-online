@@ -1,5 +1,7 @@
+import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { Book } from '../shared/book';
 import { BookRatingService } from '../shared/book-rating.service';
@@ -25,7 +27,11 @@ describe('DashboardComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [ DashboardComponent ],
-      imports: [],
+      imports: [
+        /*RouterTestingModule.withRoutes([
+          { path: 'books/:isbn', children: [] }
+        ])*/
+      ],
       providers: [
         // BRS ersetzen: Immer wenn BRS anfordert, wird stattdessen ratingMock ausgeliefert
         {
@@ -40,6 +46,10 @@ describe('DashboardComponent', () => {
       schemas: [NO_ERRORS_SCHEMA] // Shallow Component Test
     })
     .compileComponents();
+
+
+    // const location = TestBed.inject(Location);
+
 
     fixture = TestBed.createComponent(DashboardComponent);
     // TS-Klasseninstanz

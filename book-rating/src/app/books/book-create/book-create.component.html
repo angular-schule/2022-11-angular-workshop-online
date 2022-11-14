@@ -1,1 +1,44 @@
-<p>book-create works!</p>
+<form [formGroup]="bookForm">
+  <div class="form-group">
+    <label for="isbnInput">ISBN</label>
+    <input id="isbnInput" type="text" class="form-control" formControlName="isbn">
+
+    <div class="feedback-error" *ngIf="isInvalid('isbn')">Die ISBN ist ungültig.</div>
+    <div class="feedback-error">Die ISBN ist zu kurz.</div>
+
+    <!--<br-form-errors controlName="isbn" [messages]="{required: 'ERFORDERLICH', minelngth: 'ZU KURZ'}"></br-form-errors>-->
+  </div>
+
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" class="form-control" formControlName="title">
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <textarea class="form-control" formControlName="description"></textarea>
+  </div>
+
+  <!--<div class="form-group">
+    <label>Rating</label>
+    <input type="number" class="form-control" formControlName="rating">
+  </div>-->
+
+
+  <div class="form-group">
+    <label>Rating</label>
+    <select class="form-control" formControlName="rating">
+      <option *ngFor="let o of [1,2,3,4,5]" [ngValue]="o">{{ o }}</option>
+    </select>
+  </div>
+
+
+
+  <div class="form-group">
+    <label>Price</label>
+    <input type="number" class="form-control" formControlName="price">
+  </div>
+</form>
+
+
+<pre>{{ bookForm.value | json }}</pre>
