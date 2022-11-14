@@ -19,6 +19,7 @@ export class BookComponent implements OnInit {
   @Input() book?: Book;
   @Output() rateUp = new EventEmitter<Book>();
   @Output() rateDown = new EventEmitter<Book>();
+  @Output() delete = new EventEmitter<Book>();
   // @Output() rate = new EventEmitter<RatePayload>();
 
   constructor() {
@@ -37,6 +38,10 @@ export class BookComponent implements OnInit {
 
   doRateDown() {
     this.rateDown.emit(this.book);
+  }
+
+  doDelete() {
+    this.delete.emit(this.book);
   }
 
   log() {

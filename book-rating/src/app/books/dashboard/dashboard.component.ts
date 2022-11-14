@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TrackByFunction } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, TrackByFunction } from '@angular/core';
 import { Book } from '../shared/book';
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
@@ -6,7 +6,8 @@ import { BookStoreService } from '../shared/book-store.service';
 @Component({
   selector: 'br-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
 
@@ -32,6 +33,16 @@ export class DashboardComponent implements OnInit {
   doRateDownX(book: Book) {
     const ratedBook = this.rs.rateDown(book);
     this.updateList(ratedBook);
+  }
+
+  doDelete(book: Book) {
+    if (!confirm('Löschen??')) {
+      return;
+    }
+
+    this.bs.delete(book.isbn).subscribe(() => {
+      this.bs.getAll().subscribe(books => this.books = books);
+    });
   }
 
   private updateList(ratedBook: Book) {
