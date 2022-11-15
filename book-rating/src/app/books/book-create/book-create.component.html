@@ -1,4 +1,4 @@
-<form [formGroup]="bookForm">
+<form [formGroup]="bookForm" (ngSubmit)="submitForm()">
   <div class="form-group">
     <label for="isbnInput">ISBN</label>
     <input id="isbnInput" type="text" class="form-control" formControlName="isbn">
@@ -52,6 +52,9 @@
     <label>Price</label>
     <input type="number" class="form-control" formControlName="price">
   </div>
+
+
+  <button type="submit" class="btn btn-danger" [disabled]="bookForm.invalid">Abschicken</button>
 </form>
 
 

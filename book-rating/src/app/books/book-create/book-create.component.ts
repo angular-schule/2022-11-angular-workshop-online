@@ -1,5 +1,9 @@
-import { Component, InjectFlags, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { Book } from '../shared/book';
+import { BookStoreService } from '../shared/book-store.service';
 
 @Component({
   selector: 'br-book-create',
@@ -43,7 +47,11 @@ export class BookCreateComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.bookForm.value
+
+  }
+
+  constructor(private bs: BookStoreService, private router: Router) {
+
   }
 
   isInvalid(controlName: string): boolean {
@@ -75,14 +83,30 @@ export class BookCreateComponent implements OnInit {
     return control.hasError(errorCode) && control.touched;
   }
 
+  submitForm() {
+    /*if (this.bookForm.invalid) {
+      return;
+    }*/
+
+    const book: Book = this.bookForm.getRawValue();
+    this.bs.create(book).subscribe({
+      next: receivedBook => {
+        this.router.navigate(['/books', receivedBook.isbn]);
+        // this.router.navigateByUrl('/books');
+      },
+      error: err => {}
+    });
+
+  }
+
 }
 
 
 /*
 TODO:
-  - Fehlermeldungen darstellen
-    - "Die ISBN ist ungültig."
-    - "Die ISBN ist zu kurz."
+  - Fehlermeldungen darstellen ✅
+    - "Die ISBN ist ungültig." ✅
+    - "Die ISBN ist zu kurz." ✅
   - Submit-Button
   - abschicken
   - Buch-Objekt erstellen
