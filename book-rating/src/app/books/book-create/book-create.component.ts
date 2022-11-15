@@ -1,5 +1,5 @@
 import { Component, InjectFlags, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'br-book-create',
@@ -25,6 +25,15 @@ export class BookCreateComponent implements OnInit {
         Validators.maxLength(100)
       ]
     }),
+    /*address: new FormGroup({
+      city: new FormControl(''),
+      street: new FormControl(''),
+    }),
+    authors: new FormArray([
+      new FormControl(''),
+      new FormControl(''),
+      new FormControl(''),
+    ]),*/
     description: new FormControl('', { nonNullable: true }),
     rating: new FormControl(1, {
       nonNullable: true,
@@ -34,11 +43,36 @@ export class BookCreateComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.bookForm.value
   }
 
   isInvalid(controlName: string): boolean {
-    // TODO
-    return false;
+    const control = this.bookForm.get(controlName);
+
+    if (!control) {
+      return false;
+    }
+
+    //return !!control && control.invalid && control.touched;
+    return control.invalid && control.touched;
+
+    /*if (control) {
+      return control.invalid && control.touched;
+    } else {
+      return false;
+    }*/
+  }
+
+  hasError(controlName: string, errorCode: string): boolean {
+    const control = this.bookForm.get(controlName);
+    if (!control) {
+      return false;
+    }
+
+
+    // return !!control.getError(errorCode) && control.touched;
+    // return control.errors?.[errorCode] && control.touched;
+    return control.hasError(errorCode) && control.touched;
   }
 
 }

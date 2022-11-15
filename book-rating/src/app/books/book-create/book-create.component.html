@@ -4,7 +4,12 @@
     <input id="isbnInput" type="text" class="form-control" formControlName="isbn">
 
     <div class="feedback-error" *ngIf="isInvalid('isbn')">Die ISBN ist ungültig.</div>
-    <div class="feedback-error">Die ISBN ist zu kurz.</div>
+    <div class="feedback-error" *ngIf="hasError('isbn', 'minlength')">Die ISBN ist zu kurz.</div>
+    <div class="feedback-error" *ngIf="hasError('isbn', 'maxlength')">Die ISBN ist zu lang.</div>
+    <div class="feedback-error" *ngIf="hasError('isbn', 'pattern')">Die ISBN entspricht nicht dem Pattern.</div>
+    <div class="feedback-error" *ngIf="hasError('isbn', 'required')">Die ISBN muss angegeben werden.</div>
+
+    <pre>{{ bookForm.get('isbn')?.errors | json }}</pre>
 
     <!--<br-form-errors controlName="isbn" [messages]="{required: 'ERFORDERLICH', minelngth: 'ZU KURZ'}"></br-form-errors>-->
   </div>
@@ -13,6 +18,15 @@
     <label>Title</label>
     <input type="text" class="form-control" formControlName="title">
   </div>
+
+
+  <!--<div formGroupName="address">
+    <input type="text" formControlName="city">
+  </div>
+  <div formArrayName="authors">
+    <input type="text" [formControlName]="i"
+      *ngFor="let c of bookForm.controls.authors.controls; index as i">
+  </div>-->
 
   <div class="form-group">
     <label>Description</label>
