@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { merge, timer, Observable, map, scan, tap, defer } from 'rxjs';
+import { merge, timer, Observable, map, scan, tap, defer, Subject } from 'rxjs';
 
 import { ExerciseService } from '../exercise.service';
 
@@ -7,6 +7,9 @@ import { ExerciseService } from '../exercise.service';
   providedIn: 'root'
 })
 export class MeasureValuesService {
+
+  // private _data = new Subject<string>();
+  // data$ = this._data.asObservable();
 
   private callCount = 0;
 

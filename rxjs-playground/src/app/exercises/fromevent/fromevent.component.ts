@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { fromEvent, map, startWith, debounceTime } from 'rxjs';
+import { fromEvent, map, startWith, debounceTime, throttleTime } from 'rxjs';
 
 @Component({
   selector: 'rxw-fromevent',
@@ -20,9 +20,14 @@ export class FromeventComponent {
 
     /******************************/
 
+    const width$ = fromEvent(window, 'resize').pipe(
+      debounceTime(1000),
+      map(e => window.innerWidth),
+      startWith(window.innerWidth),
+    );
 
-    fromEvent(window, 'resize').subscribe(e => {
-      console.log(e);
+    width$.subscribe(e => {
+      this.currentWidth = e;
     })
 
     /******************************/
