@@ -52,15 +52,15 @@ export class CreatingComponent {
 
     }
 
-    const obs: Observer<number> = {
+    const obs: Partial<Observer<number>> = {
       next: (value) => console.log(value),
-      error: (err) => console.error(err),
+      // error: (err) => console.error(err),
       complete: () => console.log('FERTIG!')
     }
 
     // producer(obs);
     const myObservable$ = new Observable(producer);
-    // myObservable$.subscribe(obs);
+    myObservable$.subscribe(obs);
     // myObservable$.subscribe(obs);
     // myObservable$.subscribe(obs);
 
