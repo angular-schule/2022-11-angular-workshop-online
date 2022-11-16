@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, TrackByFunction } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Book } from '../shared/book';
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
+import { loadBooks } from '../store/book.actions';
+import { selectBooks, selectLoading } from '../store/book.selectors';
 
 @Component({
   selector: 'br-dashboard',
@@ -17,10 +20,13 @@ export class DashboardComponent implements OnInit {
     return item.isbn;
   }
 
-  constructor(private rs: BookRatingService, private bs: BookStoreService) {
-    this.bs.getAll().subscribe(books => {
+  constructor(private rs: BookRatingService, private bs: BookStoreService, private store: Store) {
+    this.store.dispatch(loadBooks());
+    // this.store.dispatch({ type: 'HALLO WELT' })
+
+    this.store.select(selectBooks).subscribe(books => {
       this.books = books;
-    });
+    })
   }
 
   ngOnInit(): void {}
