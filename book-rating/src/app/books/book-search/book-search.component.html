@@ -1,3 +1,9 @@
 <div class="form-group">
   <input type="text" class="form-control" [formControl]="searchControl">
 </div>
+
+<ul *ngIf="books$ | async as books">
+  <li *ngFor="let book of books">
+    <a [routerLink]="['/books', book.isbn]">{{ book.title }}</a>
+  </li>
+</ul>
