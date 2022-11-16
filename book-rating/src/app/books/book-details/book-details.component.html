@@ -1,11 +1,14 @@
-<!-- <br-book [book]="book"></br-book> -->
+<!-- <br-book *ngIf="book$ | async as book" [book]="book"></br-book> -->
 
-<ng-container *ngIf="book">
+<ng-container *ngIf="book$ | async as book">
   <h2>{{ book.title }}</h2>
   <p>{{ book.description }}</p>
 </ng-container>
 
+
 <hr>
+
+{{ loading }}
 
 
 <!-- <a routerLink="..">Zum Dashboard</a> -->
