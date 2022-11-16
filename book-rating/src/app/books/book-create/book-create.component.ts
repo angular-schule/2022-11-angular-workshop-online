@@ -50,9 +50,7 @@ export class BookCreateComponent implements OnInit {
 
   }
 
-  constructor(private bs: BookStoreService, private router: Router) {
-
-  }
+  constructor(private bs: BookStoreService, private router: Router) {}
 
   isInvalid(controlName: string): boolean {
     const control = this.bookForm.get(controlName);
@@ -87,6 +85,7 @@ export class BookCreateComponent implements OnInit {
     /*if (this.bookForm.invalid) {
       return;
     }*/
+
 
     const book: Book = this.bookForm.getRawValue();
     this.bs.create(book).subscribe({
